@@ -60,16 +60,16 @@ module.exports.run = async function ({ api, event, args }) {
     categorizedCommands.get(categoryName).push(`│ ✧ ${value.config.name}`);
   }
 
-  let msg = `𝖧𝖾𝗒 ${userName}, 𝗍𝗁𝖾𝗌𝖾 𝖺𝗋𝖾 𝖼𝗈𝗆𝗆𝖺𝗇𝖽𝗌 𝗍𝗁𝖺𝗍 𝗆𝖺𝗒 𝗁𝖾𝗅𝗉 𝗒𝗈𝗎:\n\n`;
+  let msg = ``;
 
   for (const categoryName of categories) {
-    const categoryNameSansBold = categoryName.split("").map(c => mathSansBold[c] || c).join("");
+    const categoryNameSansBold = categoryName.split("").map(c => mathSansBold[c] || c).join("").toUpperCase;
     msg += `╭─❍「 ${categoryNameSansBold} 」\n`;
-    msg += categorizedCommands.get(categoryName).join("\n");
+    msg += categorizedCommands.get(categoryName).join("\n").toLowerCase;
     msg += "\n╰───────────⟡\n";
   }
 
-  msg += `├─────☾⋆\n│ » Total commands: [ ${commands.size} ]\n│「 ☾⋆ PREFIX: ${global.config.PREFIX} 」\n╰───────────⟡`;
+  msg += `╭─────☾⋆\n│ » Total commands: [ ${commands.size} ]\n│「 ☾⋆ PREFIX: ${global.config.PREFIX} 」\n╰───────────⟡`;
 
   return api.shareContact(msg, api.getCurrentUserID(), threadID, async (error, info) => {
     if (autoUnsend) {
