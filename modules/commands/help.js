@@ -58,14 +58,17 @@ module.exports.run = async function ({ api, event, args }) {
       categorizedCommands.set(categoryName, []);
     }
     categorizedCommands.get(categoryName).push(`│ ✧ ${value.config.name}`);
+    const text = categorizedCommands.get(categoryName);
+    const fontify = text.split("").map(c => mathSansBold[c.toUpperCase] || c).join("\n");
+
   }
 
   let msg = ``;
 
   for (const categoryName of categories) {
-    const categoryNameSansBold = categoryName.split("").map(c => mathSansBold[c] || c).join("").toUpperCase;
+    const categoryNameSansBold = categoryName.split("").map(c => mathSansBold[c.toUpperCase] || c).join("");
     msg += `╭─❍「 ${categoryNameSansBold} 」\n`;
-    msg += categorizedCommands.get(categoryName).join("\n").toLowerCase;
+    msg += fontify;
     msg += "\n╰───────────⟡\n";
   }
 
