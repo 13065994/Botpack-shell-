@@ -16,7 +16,7 @@ module.exports.handleReply = async function ({ api, event, handleReply }) {
     const { messageID, threadID } = event;
     const id = event.senderID;
 
-    const apiUrl = `https://jonellccprojectapis10.adaptable.app/api/gptconvo?ask=${encodeURIComponent(event.body)}&id=${id}`;
+    const apiUrl = `https://mateoapis.onrender.com/api/ai?model=gpt-4-turbo-2024-04-09&system=You are a helpful assistant&question=${encodeURIComponent(event.body)}`;
 
     try {
         const lad = await api.sendMessage("🔎 Searching for an answer. Please wait...", threadID, messageID);
@@ -37,7 +37,7 @@ module.exports.run = async function ({ api, event, args }) {
 
     if (!args[0]) return api.sendMessage("Please provide your question.\n\nExample: ai what is the solar system?", threadID, messageID);
 
-    const apiUrl = `https://jonellccprojectapis10.adaptable.app/api/gptconvo?ask=${encodeURIComponent(args.join(" "))}&id=${id}`;
+    const apiUrl = `https://mateoapis.onrender.com/api/ai?model=gpt-4-turbo-2024-04-09&system=You are a helpful assistant&question=${encodeURIComponent(args.join(" "))}`;
 
     const lad = await api.sendMessage("🔎 Searching for an answer. Please wait...", threadID, messageID);
 
